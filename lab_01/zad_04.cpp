@@ -4,6 +4,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    cout << "/usr/bin/xorg/" << endl;
+    cout << "C:\\Windows\\System" << endl;
     return 0;
 }
