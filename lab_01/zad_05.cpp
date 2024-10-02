@@ -4,6 +4,12 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    int x, y;
+    cout << "Podaj x: ";
+    cin >> x;
+    cout << "Podaj y: ";
+    cin >> y;
+
+    cout << x+y << endl << x*y << endl << x/y << endl;
     return 0;
 }
