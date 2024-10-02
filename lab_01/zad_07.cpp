@@ -4,6 +4,10 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    float x, y;
+    scanf("%f", &x);
+    scanf("%f", &y);
+    printf("%f", x*y);
+
     return 0;
 }
