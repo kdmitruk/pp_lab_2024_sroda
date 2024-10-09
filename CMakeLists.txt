@@ -21,3 +21,4 @@ function(generate_exercise_list NUM_TASKS OUTPUT_LIST)
 endfunction()
 
 add_subdirectory(lab_01)
+add_subdirectory(lab_02)
