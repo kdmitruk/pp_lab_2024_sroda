@@ -4,6 +4,13 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    int n=0,m=1;
+    int temp;
+    for (int i = 0 ; i < 50 ; i++)
+    {
+        cout << n << " ";
+        temp = n + m;
+        n = m;
+        m = temp;
+    }
 }
