@@ -4,6 +4,14 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    int x=0;
+    int sum =0;
+    while(x != 0)
+    {
+        sum = sum + x%10;
+        x=x/10;
+
+    }
+
+    cout<<abs(sum)<<endl;
 }
