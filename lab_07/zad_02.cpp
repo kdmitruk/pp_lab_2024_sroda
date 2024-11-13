@@ -1,30 +1,26 @@
 #include <iostream>
-#include <climits>
 
 using namespace std;
 
+void displayIndexed(float data[], unsigned int indices[], const int dataSize, const int indicesSize) {
+    for(int i=0; i<indicesSize; i++) {
+        int index = indices[i];
+        cout << "[" << index << "]=";
+        if(index >= 0 && index < dataSize)
+            cout << data[index];
+        else
+            cout << "NAN";
+        cout << " ";
+    }
+}
 
 int main()
 {
-    unsigned int x = 1024;//INT_MAX +1;
-    unsigned int index = 1<<31;
+    const int size1 = 5;
+    const int size2 = 5;
+    float arr1[size1]= {2.3,3.1,0.5,3.4,5.2};
+    unsigned int arr2[size2] ={4,1,3,9,1};
 
-    /*while(x>0){
-
-        cout <<(x & index)<<endl;
-        x >>= 1;
-    }*/
-    bool print = false;
-    while(index != 0){
-        int digit =(x & index)!=0 ? 1:0;
-        if(!print){
-            if (digit==1)
-                print = true;
-        }
-        if(print)
-        cout <<((x & index)!=0 ? 1:0);
-
-        index >>= 1;
-    }
+    displayIndexed( arr1,  arr2,  size1, size2);
     return 0;
 }
