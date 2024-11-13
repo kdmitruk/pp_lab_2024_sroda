@@ -1,17 +1,23 @@
 #include <iostream>
-#include <climits>
 
 using namespace std;
-int bit_value(int a, int index){
-    index = 1 << index;
 
-    return (a & index) ? 1 : 0;
-}
+int stringToInt(char napis[]);
 
 int main()
 {
-    int x = 1023;
-    int index = 2;
-    cout << bit_value(x, index)<<endl;
+    char napis[] = "12312";
+    cout << stringToInt(napis);
     return 0;
+}
+
+int stringToInt(char napis[]){
+    int wynik = 0;
+    for(int i = 0; napis[i] != '\0';i++)
+    {
+        wynik *= 10;
+        wynik += napis[i] - '0';
+
+    }
+    return wynik;
 }
