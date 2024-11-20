@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #define uchar unsigned char
 
 
@@ -15,12 +16,13 @@ void zad6(uint word, uchar *b0, uchar *b1, uchar *b2, uchar *b3)
 }
 
 int main() {
-    uint word = 0xffffff;
+    uint word = 0x41424344;
     uchar b0;
     uchar b1;
     uchar b2;
     uchar b3;
     zad6(word, &b0, &b1, &b2, &b3);
-    cout << (int)b0 << " " << (int)b1 << " " << (int)b2 << " " << (int)b3 << endl;
+    //cout << (int)b0 << " " << (int)b1 << " " << (int)b2 << " " << (int)b3 << endl;
+    cout << b0 << " " << b1 << " " << b2 << " " << b3 << endl;
     return 0;
 }
