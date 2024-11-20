@@ -2,7 +2,17 @@
 
 using namespace std;
 
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+
+}
+
 int main() {
-    cout << "Hello World!" << endl;
+    int a = 2, b = 5;
+    swap(&a,&b);
+    cout<<a<<endl;
+    cout<<b<<endl;
     return 0;
 }
