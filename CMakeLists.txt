@@ -28,4 +28,5 @@ add_subdirectory(lab_05)
 add_subdirectory(lab_06)
 add_subdirectory(lab_07)
 add_subdirectory(lab_08)
+add_subdirectory(lab_09)
 
