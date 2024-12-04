@@ -2,22 +2,34 @@
 
 using namespace std;
 
-void calcVector(float result[], const float vec1[], const float vec2[]){
-    result[0] = vec1[1] * vec2[2] - vec1[2] * vec2[1];
-    result[1] = vec1[2] * vec2[0] - vec1[0] * vec2[2];
-    result[2] = vec1[0] * vec2[1] - vec1[1] * vec2[0];
+char tolower(char c)
+{
+    if(c >='A' && c<='Z')
+        return c + ('a'-'A');
+    else
+        return c;
 }
 
-int main()
+void fun(char text[], int arr[])
 {
-    float result[3];
-    float vec1[3] = {1, 3, 2};
-    float vec2[3] = {5, 3, 9};
-    calcVector(result, vec1, vec2);
-    for (int i = 0; i < 3; i++)
-    {
-        cout << result[i] << endl;
-    }
+    int counter[128] = {};
 
+    for(int i = 0; text[i]!='\0';i++)
+      counter[tolower(text[i])]+=1;
+
+    // for(int i = 0; i<128;i++)
+    //     cout<<(char)i<< ' '<<counter[i]<<endl;
+
+    for(int i = 0; text[i]!='\0';i++)
+        arr[i] = counter[tolower(text[i])];
+}
+
+int main() {
+    char text[]= "Ala ma kota";
+    int arr[12];
+
+    fun(text, arr);
+    for(int i = 0; i<11;i++)
+        cout<<arr[i]<<" ";
     return 0;
 }

@@ -1,26 +1,30 @@
 #include <iostream>
-void zerosToEnd(int n, float arr[]){
-    for(int i=0;i<n;i++){
-        bool swap=false;
-        for(int j=1;j<n-i;j++)
-            if(!arr[j-1]){
-                swap=true;
-                int tmp=arr[j];
-                arr[j]=arr[j-1];
-                arr[j-1]=tmp;
-            }
-        if(swap==false){
-            break;
-        }
+using namespace std;
+
+unsigned char fun(unsigned char v, int b, bool f)
+{
+    if(f)
+    {
+        v = ~v;
+        v = v & 15;//0xf
     }
+    unsigned char mask = 1<<b;
+    bool bit = v & mask;
+    if(!bit)
+    {
+        v |= mask;
+    }
+    else
+    {
+        v &= ~mask;
+    }
+    return v;
 }
+
 int main() {
-    float arr[]={0, 5, 3, 7, 6, 0, 0, 3, 1, 2, 6, 0, 4, 1, 2};
-    int n=sizeof(arr)/sizeof(arr[0]);
-    std::cout<<std::endl;
-    zerosToEnd(n,arr);
-    for(int i=0;i<n;i++)
-        std::cout<<arr[i]<<' ';
-    std::cout<<std::endl;
+    unsigned char v = 13;
+    int b = 6;
+    bool f = true;
+    cout<<(unsigned int)fun(v, b, f);
     return 0;
 }
