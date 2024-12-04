@@ -1,18 +1,31 @@
 #include <iostream>
-
-using namespace std;
-
-void fun(int *first, int *last)
-{
-    for (int *current = first; current <= last; current++)
-    {
-        cout << *current << "  \t" <<current << endl;
-    }
-}
+#include<cstdlib>
+#include <algorithm>
 
 int main() {
-    int arr[4] = {5, 7, -2, 8};
-    //fun(arr, arr+3);
-    fun(&arr[0], &arr[3]);
+    int n,m;
+    std::cin>>n>>m;
+    int *arr=new int[n];
+
+    for(int i=0;i<n;i++)
+        arr[i]=rand()%101-50;
+
+    std::sort(arr, arr+n);
+
+    for(int i=0;i<n;i++)
+        std::cout<<arr[i]<<" ";
+
+
+    for(int i = 0; i < n; i++){
+        for(int j = i; j < n; j++){
+            if(arr[j] + arr[i]==m){
+                std::cout<<arr[i] <<' '<< arr[j] << std::endl;
+
+            }
+        }
+    }
+
+    delete [] arr;
+
     return 0;
 }
