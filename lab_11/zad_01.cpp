@@ -19,7 +19,8 @@ int main() {
     float y;
     unsigned int z;
     cin>>x>>y>>z;
-   // float (*fun)(float, float);
+    //float (*fun)(float, float);
+    //fun = sum;
     float (*fun[4])(float, float)= {sum, sub, mul, div};
 
     cout<<fun[z](x,y);

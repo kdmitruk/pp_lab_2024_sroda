@@ -1,17 +1,34 @@
 #include <iostream>
+#include <algorithm>
 
-using namespace std;
+// void display(int x)
+// {
+//     std::cout<<x<<std::endl;
+// }
+
+// int main() {
+//     const int size = 3;
+//     int arr[size]={1,2,3};
+//     std::for_each(arr, &arr[size], display);
+//     return 0;
+// }
 
 int main() {
-    unsigned int n;
-    cin >> n;
-    int *arr = new int [n];
+    const int size = 3;
+    int arr[size]={1,2,39};
 
-    for (int i = 0; i<n; i++)
-    {
-        arr[i] = i;
-        cout<< arr[i] <<endl;
-    }
+    // void(*display)(int) = [](int x){
+    //     std::cout<<x<<std::endl;
+    // };
 
-    delete[] arr;
+    // auto display = [](int x){
+    //     std::cout<<x<<std::endl;
+    // };
+    //std::for_each(arr, &arr[size], display);
+
+    std::for_each(arr, &arr[size], [](int x) -> void{
+        std::cout<<x<<std::endl;
+    });
+    return 0;
 }
+
