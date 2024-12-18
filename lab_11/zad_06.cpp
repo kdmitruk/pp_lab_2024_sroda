@@ -1,33 +1,50 @@
 #include <iostream>
 #include<cstdlib>
+#include<algorithm>
 
-void rand_gen(float *arr, int n){
-    float tmp=(float)RAND_MAX;
-    for(int i=0;i<n;i++)
-        arr[i]=rand()/tmp;
+using namespace std;
+
+int compar1(const void *v1, const void *v2){
+    char *a=(char *)v1;
+    char *b=(char *)v2;
+    for(int i=0;;i++){
+        char c=*(a+i), d=*(b+i);
+        if(c=='\0' && d == '\0') return 0;
+        if(c=='\0') return 1;
+        if(d=='\0') return -1;
+        if(std::tolower(c)>std::tolower(d)) return -1;
+        if(std::tolower(c)<std::tolower(d)) return 1;
+    }
 }
-void printElements(float *arr1, int n1, int *arr2, int n2){
-
-    for(int i=0;i<n2;i++){
-        if(arr2[i]>=0 && arr2[i]<n1)
-            std::cout<<arr1[arr2[i]]<<' ';
-        else
-            std::cout<<"NAN"<<' ';
+bool compar2(char *a, char *b){
+    for(int i=0;;i++){
+        char c=*(a+i), d=*(b+i);
+        if(c=='\0' && d == '\0') return false;
+        if(c=='\0') return true;
+        if(d=='\0') return false;
+        if(std::tolower(c)>std::tolower(d)) return false;
+        if(std::tolower(c)<std::tolower(d)) return true;
     }
 }
 int main(){
-    int n1=10;
-    float *arr1=new float[n1];
-    rand_gen(arr1,n1);
-    for(int i=0;i<n1;i++)
-        std::cout<<arr1[i]<<' ';
-    std::cout<<'\n';
-    int n2=5;
-    int *arr2=new int[n2];
-    for(int i=0;i<n2;i++)
-        std::cin>>arr2[i];
-    printElements(arr1,n1, arr2, n2);
-    delete [] arr1;
-    delete [] arr2;
+    int length = 4;
+
+    char array[][100] = {
+        "jakis napis",
+        "jakis inny napis",
+        "jeszcze ze dwa",
+        "ostatni"
+    };
+
+    char *array_ptr[length];
+    for(int i=0; i<length; i++)
+        array_ptr[i] = (char *)array+i*100;
+
+    //qsort(array, length, 100, compar1);
+    //for_each(array, array+length, [](char array [100]) {cout << array << endl;});
+
+    sort(array_ptr, array_ptr+length, compar2);
+    for_each(array_ptr, array_ptr+length, [](char *array) {cout << array << endl;});
+
     return 0;
 }
