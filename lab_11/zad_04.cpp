@@ -1,47 +1,49 @@
 #include <iostream>
-
+#include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 
-bool pom(float value, float min, float max)
+int comparator(const void *a, const void *b)
 {
-    return (value>=min && value<max);
+    const float *ia = (const float*)a;
+    const float *ib = (const float*)b;
+    // dla int
+    // cout << *ia << " " << *ib << " " << *ia-*ib << endl;
+    // return *ia-*ib;
+
+    //dla float i double
+    return *ia>*ib ? 1
+                    : *ia==*ib ? 0
+                    : -1;
+}
+int reverseComparator(const void *a, const void *b)
+{
+    return comparator(a, b)*(-1);
 }
 
-float* zad4(const float arr[], int size, float min, float max, int* n_out)
-{
-    *n_out = 0;
-    int j = 0;
-    for (int i=0; i<size; i++)
-    {
-        if (pom(arr[i], min, max))
-        {
-            (*n_out)++;
-        }
-    }
-    float *result = new float[*n_out];
-    for (int i=0; i<size; i++)
-    {
-        if (pom(arr[i], min, max))
-        {
-            result[j] = arr[i];
-            j++;
-        }
-    }
-    return result;
+void c_solution() {
+    float arr1[] = {1.2f, 1.3f, 1.11f, .5f};
+    int size = sizeof(arr1)/sizeof(arr1[0]);
+    qsort(arr1, size, sizeof(arr1[0]), comparator);
+    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
+    cout << endl;
+    qsort(arr1, size, sizeof(arr1[0]), reverseComparator);
+    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
+}
+
+void cpp_solution() {
+    float arr1[] = {1.2f, 1.3f, 1.11f, .5f};
+    int size = sizeof(arr1)/sizeof(arr1[0]);
+    sort(arr1, arr1+size);
+    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
+    cout << endl;
+    sort(arr1, arr1+size, [](float a, float b) {return a>b;});
+    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
 }
 
 int main()
 {
-    const float arr[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    int size = sizeof(arr)/sizeof(arr[0]);
-    float min = 3;
-    float max = 8;
-    int n_out;
-    float *result = zad4(arr, size, min, max, &n_out);
-    for (int i=0; i<n_out; i++)
-    {
-        cout << result[i] << " ";
-    }
+    c_solution();
     return 0;
 }
