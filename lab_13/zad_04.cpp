@@ -1,49 +1,43 @@
 #include <iostream>
-#include <algorithm>
-#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
-int comparator(const void *a, const void *b)
+struct Point{
+    float x;
+    float y;
+};
+
+float distance(Point a, Point b)
 {
-    const float *ia = (const float*)a;
-    const float *ib = (const float*)b;
-    // dla int
-    // cout << *ia << " " << *ib << " " << *ia-*ib << endl;
-    // return *ia-*ib;
-
-    //dla float i double
-    return *ia>*ib ? 1
-                    : *ia==*ib ? 0
-                    : -1;
+    return hypot(a.x-b.x, a.y-b.y);
 }
-int reverseComparator(const void *a, const void *b)
+
+float minDist(Point points[], size_t size, Point &p1Min, Point &p2Min)
 {
-    return comparator(a, b)*(-1);
+    float minDistance = distance(points[0], points[1]);
+    for (int i=0; i<size; i++)
+    {
+        for (int j=i+1; j<size; j++)
+        {
+            float tempDistance = distance(points[i], points[j]);
+            if(tempDistance<=minDistance)
+            {
+                minDistance = tempDistance;
+                p1Min = points[i];
+                p2Min = points[j];
+            }
+        }
+    }
+    return minDistance;
 }
 
-void c_solution() {
-    float arr1[] = {1.2f, 1.3f, 1.11f, .5f};
-    int size = sizeof(arr1)/sizeof(arr1[0]);
-    qsort(arr1, size, sizeof(arr1[0]), comparator);
-    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
-    cout << endl;
-    qsort(arr1, size, sizeof(arr1[0]), reverseComparator);
-    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
-}
+int main(){
+    Point points[4]={Point{2,2}, Point{1,2}, Point{0,1}, Point{0,0}};
+    Point p1;
+    Point p2;
+    cout << minDist(points, 4, p1, p2) << endl;
+    cout << p1.x << " " << p1.y << " " << p2.x << " " << p2.y << endl;
 
-void cpp_solution() {
-    float arr1[] = {1.2f, 1.3f, 1.11f, .5f};
-    int size = sizeof(arr1)/sizeof(arr1[0]);
-    sort(arr1, arr1+size);
-    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
-    cout << endl;
-    sort(arr1, arr1+size, [](float a, float b) {return a>b;});
-    for_each(arr1, arr1+size, [](float x) {cout << x << endl;});
-}
-
-int main()
-{
-    c_solution();
     return 0;
 }
