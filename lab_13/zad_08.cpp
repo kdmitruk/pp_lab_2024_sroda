@@ -1,91 +1,68 @@
 #include <iostream>
-#include <algorithm>
-#include <cstdlib>
-#include <ctime>
-#include <iomanip>
+#include <cstring>
 
-using namespace std;
-
-void **chaotic_placement(void ***stairway, int chamber_count, int chamber_reach, int forbidden_chamber) {
-    int chamber;
-    do {
-        chamber = rand() % chamber_count;
-    } while (chamber == forbidden_chamber);
-    int gate = rand() % (chamber_reach - 2) + 1;
-    return stairway[chamber] + gate;
-}
-
-void **conjure_grim_prison(int *chamber_count, int *chamber_reach) {
-    void ***stairway = new void**[*chamber_count];
-    for(int i=0; i<*chamber_count; ++i) {
-        void **chamber = new void*[*chamber_reach];
-        std::fill(chamber, chamber + *chamber_reach, nullptr);
-        stairway[i] = chamber;
+struct p {
+    int age;
+    char *name;
+    p(int age, const char* name){
+        this->age=age;
+        this->name=new char[std::strlen(name)+1];
+        strcpy(this->name, name);
     }
-
-    for(int i=0; i<*chamber_count; ++i) {
-        void **current_chamber = stairway[i];
-        void **next_chamber = stairway[(i+1) % *chamber_count];
-        next_chamber[0] = current_chamber;
-        current_chamber[*chamber_reach - 1] = next_chamber;
+    // p(const p& p){
+    //     age=p.age;
+    //     if (p.name) {
+    //         name = new char[strlen(p.name) + 1];
+    //         strcpy(name, p.name);
+    //     } else {
+    //         name = nullptr;
+    //     }
+    // }
+    void print(){
+        std::cout<<name<<' '<<age<<std::endl;
     }
-
-    void **escape = new void*[2];
-    escape[0] = stairway;
-    escape[1] = chamber_count;
-
-    int origin_chamber = rand() % *chamber_count;
-
-    void **final_gate = chaotic_placement(stairway, *chamber_count, *chamber_reach, origin_chamber);
-    *final_gate = escape;
-
-    for(int j=0; j < *chamber_count; ++j) {
-        cout << stairway[j] << " --- ";
-        for(int i=0; i < *chamber_reach; ++i)
-            cout << setw(14) << stairway[j][i] << " ";
-        cout << endl;
+    ~p(){
+        delete [] name;
     }
-    cout << stairway[origin_chamber];
-
-    return stairway[origin_chamber];
-}
-
-void destroy_prison(void **origin) {
-    int chamber_reach = 1;
-
-    while(!origin[chamber_reach])
-        chamber_reach++;
-
-    void **current_chamber = origin;
-
-    void **escape = nullptr;
-    while(!escape) {
-        for(int i=1; i<chamber_reach; ++i)
-            if(current_chamber[i])
-                escape = (void **)current_chamber[i];
-
-        current_chamber = (void **)current_chamber[0];
-    }
-
-    void ***stairway = (void ***)escape[0];
-    int *chamber_count = (int *)escape[1];
-
-    for(int i=0; i<*chamber_count; ++i)
-        delete[] stairway[i];
-
-    delete[] stairway;
-    delete[] escape;
-
-}
+};
 
 
-int main()
-{
-    srand(time(0));
-    int chamber_count = 5;
-    int chamber_reach = 10;
-    void **prison_chamber = conjure_grim_prison(&chamber_count, &chamber_reach);
-    destroy_prison(prison_chamber);
+int main() {
+    // Tworzenie obiektu statycznego
+    p p1(25, "Alice");
+    //std::cout << "Original p1: ";
+    //p1.print();
 
+    p p2 = p1;
+
+    p1.age = 26;
+    p1.name[0] = 'B';
+
+    p1.print();
+    p2.print();
+
+
+
+
+/*
+    // Tworzenie głębokiej kopii obiektu statycznego
+    p p2 = p1;
+    std::cout << "Copied p2: ";
+    p2.print();
+
+    // Tworzenie dynamicznego obiektu struktury p
+    p* p3 = new p(30, "Bob");
+    std::cout << "Original p3: ";
+    p3->print();
+
+    // Tworzenie głębokiej kopii dynamicznego obiektu
+    p* p4 = new p(*p3);
+    std::cout << "Copied p4: ";
+    p4->print();
+
+    // Usuwanie dynamicznych obiektów
+    delete p3;
+    delete p4;
+*/
     return 0;
 }
