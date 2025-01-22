@@ -45,12 +45,6 @@ Player createPlayer(const char *input){
     result.games = strtol(semicolnPos, &semicolnPos, 10);
     result.frags = strtol(semicolnPos, nullptr, 10);
 
-
-
-
-
-
-
     delete[] temp;
     return result;
 }
@@ -77,22 +71,41 @@ void ranking(const Player players[], int size)
     delete[] player_indices;
 }
 
+void rankingv2(const char *str[], int size) {
+    Player *players = new Player[4];
+    for(int i=0; i<size; ++i)
+        players[i] = createPlayer(str[i]);
+
+    ranking(players, 4);
+
+    delete[] players;
+}
+
 int main ()
 {
-    Player players[4] = {
-        createPlayer("MystiqueHero;1365;6890;15210"),
-        createPlayer("Frizz;5400;6200;11000"),
-        createPlayer("Ziemniak;9965;11000;73000"),
-        createPlayer("Evel00na;10;10;90")
-    };
-    ranking(players, 4);
-    // char szNumbers[] = "MystiqueHero;1365;6890;15210";
-    // char * pEnd;
-    // long int li1, li2, li3, li4;
-    // li1 = strtol (szNumbers,&pEnd,10);
-    // li2 = strtol (pEnd,&pEnd,16);
-    // li3 = strtol (pEnd,&pEnd,2);
-    // li4 = strtol (pEnd,NULL,0);
-    // printf ("The decimal equivalents are: %ld, %ld, %ld and %ld.\n", li1, li2, li3, li4);
+    int size = 4;
+    const char **str = new const char*[4];
+    str[0] = new const char[50]{"MystiqueHero;1365;6890;15210"};
+    str[1] = new const char[50]{"Frizz;5400;6200;11000"};
+    str[2] = new const char[50]{"Ziemniak;9965;11000;73000"};
+    str[3] = new const char[50]{"Evel00na;10;10;90"};
+
+    rankingv2(str, 4);
+
+    for(int i=0; i<size; ++i)
+        delete[] str[i];
+    delete[] str;
     return 0;
 }
+
+// int main ()
+// {
+//     Player players[4] = {
+//         createPlayer("MystiqueHero;1365;6890;15210"),
+//         createPlayer("Frizz;5400;6200;11000"),
+//         createPlayer("Ziemniak;9965;11000;73000"),
+//         createPlayer("Evel00na;10;10;90")
+//     };
+//     ranking(players, 4);
+//     return 0;
+// }
