@@ -34,5 +34,6 @@ add_subdirectory(lab_11)
 add_subdirectory(lab_12)
 add_subdirectory(lab_13)
 add_subdirectory(lab_14)
+add_subdirectory(lab_15)
 
 
